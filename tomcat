@@ -1,0 +1,46 @@
+#!/bin/sh
+#chkconfig: 2345 10 90
+# description: Starts and Stops the Tomcat daemon.
+#by jj
+##############################################
+#Startup script for Tomcat on Linux
+
+#filename tomcat.sh
+
+#Make sure the java and the tomcat installation path has been added to the PATH
+JAVA_HOME=/usr/lib/jvm/jdk7                  #JDK掳虏装目录
+CATALINA_HOME=/home/tomcat7           #tomcat掳虏装目录
+export JAVA_HOME
+export CATALINA_HOME
+
+###############################################
+start_tomcat=$CATALINA_HOME/bin/startup.sh              #tomcat脝露炉脦录镁
+stop_tomcat=$CATALINA_HOME/bin/shutdown.sh                  #tomcat鹿乇脮募镁
+start() {                                                              
+        echo -n "Starting tomcat: "
+        ${start_tomcat}
+        echo "tomcat start ok."
+}
+stop() {
+        echo -n "Shutting down tomcat: "
+        ${stop_tomcat}
+        echo "tomcat stop ok."
+}
+# See how we were called
+                                                   
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        stop
+        sleep 2
+        start
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+esac
+exit 0
